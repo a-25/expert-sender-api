@@ -11,10 +11,12 @@ class ApiResult
 
     /**
      * @param  ExpertSenderResponse $response
+     * @param  $request
      */
-    public function __construct($response)
+    public function __construct($response, $request)
     {
         $this->response = $response;
+        $this->request = $request;
 
         if ($response->isOk()) {
             $this->errorCode = 0;
@@ -25,6 +27,11 @@ class ApiResult
             $this->responseCode = $response->getResponseCode();
             $this->errorMessage = $response->getErrorMessage();
         }
+    }
+
+    public function getRequest()
+    {
+        return $this->request;
     }
 
     public function isOk()

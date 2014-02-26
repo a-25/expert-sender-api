@@ -95,9 +95,10 @@ class ExpertSender
 
         $headerChunk = $this->getHeaderChunk($dataChunk);
 
-        $response = $this->transport->post($this->subscribersUrl, $headerChunk->getText());
+        $request = $headerChunk->getText();
+        $response = $this->transport->post($this->subscribersUrl, $request);
 
-        $apiResult = new ApiResult($response);
+        $apiResult = new ApiResult($response, $request);
         $this->logApiResult(__METHOD__, $apiResult);
         return $apiResult;
     }
@@ -117,7 +118,7 @@ class ExpertSender
 
         $response = $this->transport->delete($this->subscribersUrl, $data);
 
-        $apiResult = new ApiResult($response);
+        $apiResult = new ApiResult($response, $data);
         $this->logApiResult(__METHOD__, $apiResult);
         return $apiResult;
     }
@@ -161,9 +162,10 @@ class ExpertSender
         $headerChunk = $this->getHeaderChunk($dataChunk);
 
         $url = sprintf($this->triggerUrlPattern, $triggerId);
-        $response = $this->transport->post($url, $headerChunk->getText());
+        $request = $headerChunk->getText();
+        $response = $this->transport->post($url, $request);
 
-        $apiResult = new ApiResult($response);
+        $apiResult = new ApiResult($response, $request);
         $this->logApiResult(__METHOD__, $apiResult);
         return $apiResult;
     }
@@ -189,9 +191,10 @@ class ExpertSender
         $headerChunk = $this->getHeaderChunk($dataChunk);
 
         $url = sprintf($this->transactionalUrlPattern, $transactionId);
-        $response = $this->transport->post($url, $headerChunk->getText());
+        $request = $headerChunk->getText();
+        $response = $this->transport->post($url, $request);
 
-        $apiResult = new ApiResult($response);
+        $apiResult = new ApiResult($response, $request);
         $this->logApiResult(__METHOD__, $apiResult);
         return $apiResult;
     }
